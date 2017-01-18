@@ -30,9 +30,9 @@ public class VideoController {
 	private VideoManager videoManager;
 	
 	@RequestMapping(value = "play")
-	public String getPlayInfo(HttpServletRequest request ,String lsh) {
+	public String getPlayInfo(HttpServletRequest request ,String jylsh) {
 		
-		List<Map> list = videoManager.getProcessDataByLsh(lsh);
+		List<Map> list = videoManager.getProcessDataByLsh(jylsh);
 		
 		if(list==null||list.isEmpty()){
 			return "video";
