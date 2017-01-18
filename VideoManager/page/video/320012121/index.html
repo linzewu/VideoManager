@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>动车检测视频监控系统</title>
+
+<link rel="stylesheet" type="text/css"
+	href="/VideoManager/js/easyui-1.4.3/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="/VideoManager/js/easyui-1.4.3/themes/color.css">
+
+<script type="text/javascript" src="/VideoManager/js/easyui-1.4.3/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/VideoManager/js/easyui-1.4.3/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="/VideoManager/js/easyui-1.4.3/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="/VideoManager/js/data.js"></script>
+<script type="text/javascript" src="config.js"></script>
+<style type="text/css">
+.smallocxdiv {
+	width: 99%;
+	height: 98%;
+	margin: 0 auto;
+	padding-top: 2px;
+	text-align:center;
+}
+
+.check-item {
+	width: 120px;
+}
+
+.check-menu {
+	list-style: none;
+}
+
+.check-menu li {
+	margin: 10px 5px 5px 5px;
+}
+
+.playTool ul li{
+	float: left;
+	margin: 2px 5px 2px 5px;
+	
+}
+
+.playTool{
+	margin: 0 auto;
+	width: 400px;
+	height: 30px;
+}
+
+.playTool ul{
+	list-style: none;
+}
+.btn-play{
+	width: 60px;
+}
+
+.vehinfo{
+	padding-top: 20px;
+}
+</style>
+
+<script type="text/javascript">
+
+$(function(){
+	
+	$.each(ts_config.sp,function(i,n){
+		var li="<li><a  href='javascript:void(0)' class=\"easyui-linkbutton c6 check-item\" onclick=\"play('"+n.spwj+"')\" >"+n.spmc+"</a></li>";
+		$(".check-menu").append(li);
+	});
+	
+	$.parser.parse('.check-menu'); 
+	
+	
+	play(ts_config.sp[0].spwj);
+	
+});
+
+
+function play(spwj){
+	var context="<object class id=\"clsid:D27CDB6E-AE6D-11cf-96B8-444553540000\" codebase=\"http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,19,0\" style=\"width:1024px;height:768px;margin: 0 auto;\" >"+
+	  "<param name=\"movie\" value=\"flvplayer.swf\">"+
+"<param name=\"quality\" value=\"high\">"+
+"<param name=\"allowFullScreen\" value=\"true\">"+
+"<param name=\"FlashVars\" value=\"vcastr_file="+spwj+".flv&LogoText=www.15590.com&BufferTime=3&IsAutoPlay=0\">" +
+"<embed src=\"flvplayer.swf\" allowfullscreen=\"true\" flashvars=\"vcastr_file="+spwj+".flv&LogoText=www.15590.com&IsAutoPlay=1&isContinue=true\" quality=\"high\" pluginspage=\"http://www.macromedia.com/go/getflashplayer\" type=\"application/x-shockwave-flash\" width=\"1024px;\" height=\"100%\"></embed></object>";
+
+
+$("#NetPlayOCX1").empty();
+
+$("#NetPlayOCX1").append(context);
+}
+
+</script>
+</head>
+<body>
+	<div id="cc" class="easyui-layout" fit='true'>
+
+
+		<div data-options="region:'north'" style="height: 50px;">
+			<div class="vehinfo">
+				<label>号牌号码：</label>
+				<input value="" disabled="disabled" id="info_hphm" />
+				<label>检验流水号：</label>
+				<input value="" disabled="disabled" />
+				<label>监测站名称：</label>
+				<input value="" disabled="disabled" id="jyjgbh" />
+			</div>
+		</div>
+		<div data-options="region:'west'" style="width: 200px;">
+			<ul class="check-menu">
+				
+			</ul>
+		</div>
+
+		<div data-options="region:'center'" border=0>
+			<div class="easyui-layout" fit='true'>
+				<div data-options="region:'center'">
+					<div class="smallocxdiv" id="NetPlayOCX1" >
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
