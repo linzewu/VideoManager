@@ -79,7 +79,7 @@ public class DataExchangeJob  {
 		return flag;
 	}
 	
-	@Scheduled(fixedDelay = 1000*10)
+	//@Scheduled(fixedDelay = 1000*10)
 	private void timeoutPocess(){
 		Date date = new Date();
 		Calendar calendar = Calendar.getInstance();

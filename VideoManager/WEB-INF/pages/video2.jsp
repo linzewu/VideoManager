@@ -72,7 +72,6 @@
 	
 
 	var cIP=null;
-
 	var zkjms=0;
 
 	$(function () {
@@ -126,6 +125,7 @@
 			$.parser.parse('.check-menu');
 			li.find("a").click(function(){
 				logout();
+				
 				var oLiveView = {
 						iProtocol: 1,			// protocol 1：http, 2:https
 						szIP: n.ip,	// protocol ip
@@ -139,20 +139,14 @@
 					// 登录设备
 					WebVideoCtrl.I_Login(oLiveView.szIP, oLiveView.iProtocol, oLiveView.szPort, oLiveView.szUsername, oLiveView.szPassword, {
 						success: function (xmlDoc) {
-
+							
 							cIP=n.ip;
 
-							var kssj=info.kssj;
-			            	var jssj=info.jssj;
+							var kssj=n.kssj;
+			            	var jssj=n.jssj;
 			            	
 			            	var tysj=parseInt($("#tysj").val());
 			            	tysj+=zkjms;
-
-			            	if(tysj!=null){
-			        			zkjms+=tysj;
-			        		}else{
-			        			zkjms=0;
-			        		}
 			            	
 			            	if(tysj!=0||tysj!=""){
 			            		var ksl = StringToDate(kssj).getTime()+(tysj*1000);
@@ -162,7 +156,7 @@
 			            		jssj=new Date(jsl).Format("yyyy-MM-dd HH:mm:ss");
 			            	}
 							var isPaly = WebVideoCtrl.I_StartPlayback(n.ip, {
-								iChannelID: n.channel,
+								iChannelID: n.channel+1,
 								szStartTime: kssj,
 								szEndTime: jssj
 							});
@@ -258,13 +252,14 @@
 		if(cIP!=null){
 			WebVideoCtrl.I_Logout(cIP);
 		}
-		
 	}
 	
 	
 	function unLogin(){
 		WebVideoCtrl.I_Stop();
-		WebVideoCtrl.I_Logout(cIP);
+		if(cIP!=null){
+			WebVideoCtrl.I_Logout(cIP);
+		}
 	}
 window.onunload=unLogin;
 </script>

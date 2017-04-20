@@ -56,7 +56,7 @@ public class VideoController {
 						Date kssj=(Date)item.get("KSSJ");
 						Date jssj=(Date)item.get("JSSJ");
 						
-						BigDecimal jycs=(BigDecimal)item.get("JYCS");
+						Integer jycs=(Integer)item.get("JYCS");
 						
 						String fzjg=(String)item.get("FZJG");
 						String hphm=(String)item.get("HPHM");
