@@ -28,7 +28,7 @@
 		<property name="minPoolSize" value="5"></property>
 		<property name="initialPoolSize" value="5"></property>
 	</bean>
-
+	
 	<!-- 配置sessionFactory -->
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
@@ -46,6 +46,8 @@
 	<bean id="hibernateTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
+	
+	
 
 
 	<!-- 配置事务管理器 -->
@@ -64,6 +66,7 @@
 		<tx:attributes>
 			<tx:method name="save*" propagation="REQUIRED" />
 			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="scanVideo" propagation="REQUIRED" />
 			<tx:method name="*" read-only="true" />
 		</tx:attributes>
 	</tx:advice>
@@ -73,6 +76,60 @@
 		<aop:pointcut id="txPointcut"
 			expression="execution(* com.xs.veh.video.manager.*.*(..))" />
 		<aop:advisor pointcut-ref="txPointcut" advice-ref="txAdvice" />
+	</aop:config>
+	
+	<!-- 数据库连接池c3p0配置 -->
+	<bean id="dataSource2" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+		destroy-method="close">
+		<property name="jdbcUrl" value="${db2.url}"></property>
+		<property name="driverClass" value="${db2.driverClassName}"></property>
+		<property name="user" value="${db2.username}"></property>
+		<property name="password" value="${db2.password}"></property>
+		<property name="maxPoolSize" value="20"></property>
+		<property name="minPoolSize" value="5"></property>
+		<property name="initialPoolSize" value="5"></property>
+	</bean>
+	
+	<!-- 配置sessionFactory -->
+	<bean id="sessionFactory2"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource">
+			<ref bean="dataSource2" />
+		</property>
+		<property name="configLocation" value="classpath:hibernate.cfg.xml" />
+		<property name="packagesToScan">
+			<list>
+				<value>com.xs.veh.video.mssql.entity</value>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="hibernateTemplate2" class="org.springframework.orm.hibernate4.HibernateTemplate">
+		<property name="sessionFactory" ref="sessionFactory2" />
+	</bean>
+	
+	<!-- 配置事务管理器 -->
+
+	<bean id="transactionManager2"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory2" />
+	</bean>
+	
+	<!-- 声明式容器事务管理 ,transaction-manager指定事务管理器为transactionManager -->
+	<tx:advice id="txAdvice2" transaction-manager="transactionManager2">
+		<tx:attributes>
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+			<tx:method name="scanVideo" propagation="REQUIRED" />
+			<tx:method name="*" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config expose-proxy="true">
+		<!-- 只对业务逻辑层实施事务 -->
+		<aop:pointcut id="txPointcut2"
+			expression="execution(* com.xs.veh.video.manager.*.*(..))" />
+		<aop:advisor pointcut-ref="txPointcut" advice-ref="txAdvice2" />
 	</aop:config>
 
 
