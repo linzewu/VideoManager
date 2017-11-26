@@ -1,6 +1,5 @@
 package com.xs.veh.video.controller;
 
-import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -30,9 +29,9 @@ public class VideoController {
 	private VideoManager videoManager;
 	
 	@RequestMapping(value = "play")
-	public String getPlayInfo(HttpServletRequest request ,String lsh) {
+	public String getPlayInfo(HttpServletRequest request ,String jylsh) {
 		
-		List<Map> list = videoManager.getProcessDataByLsh(lsh);
+		List<Map> list = videoManager.getProcessDataByLsh(jylsh);
 		
 		if(list==null||list.isEmpty()){
 			return "video";
@@ -56,7 +55,7 @@ public class VideoController {
 						Date kssj=(Date)item.get("KSSJ");
 						Date jssj=(Date)item.get("JSSJ");
 						
-						BigDecimal jycs=(BigDecimal)item.get("JYCS");
+						Integer jycs=(Integer)item.get("JYCS");
 						
 						String fzjg=(String)item.get("FZJG");
 						String hphm=(String)item.get("HPHM");

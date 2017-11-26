@@ -362,7 +362,7 @@ window.onunload=unLogin;
 				<input value="" disabled="disabled" id="info_hphm" />
 				<label>检验流水号：</label>
 				<input value="${ param.jylsh}" disabled="disabled" />
-				<label>监测站名称：</label>
+				<label>检测站名称：</label>
 				<input value="" disabled="disabled" id="jyjgbh" />
 				
 				<label>时间推移：</label><input class="easyui-numberbox" style="width: 60px;" value="0" id="tysj">秒

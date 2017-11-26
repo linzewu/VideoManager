@@ -20,14 +20,14 @@ public class VideoManager {
 	@Resource(name = "hibernateTemplate")
 	private HibernateTemplate hibernateTemplate;
 
-	public List getProcessDataByLsh(final String lsh) {
+	public List getProcessDataByLsh(final String jylsh) {
 		return hibernateTemplate.execute(new HibernateCallback<List<Map>>() {
 			@Override
 			public List<Map> doInHibernate(Session session) throws HibernateException {
 				List<Map> list = session
 						.createSQLQuery(
-								"SELECT * FROM VEH_IS_PROCSTATUS WHERE LSH=:lsh AND JYXM!='DC' AND JYXM!='A1'  AND JYXM!='00' AND JYZT='2' AND JLZT='1' AND KSSJ IS NOT NULL  AND JSSJ IS NOT NULL ")
-						.setParameter("lsh", lsh).setResultTransformer(DetachedCriteria.ALIAS_TO_ENTITY_MAP).list();
+								"SELECT * FROM VEH_IS_PROCSTATUS WHERE JYLSH=:jylsh AND JYXM!='DC' AND JYXM!='A1'  AND JYXM!='00' AND JYZT='2' AND JLZT='1' AND KSSJ IS NOT NULL  AND JSSJ IS NOT NULL ")
+						.setParameter("jylsh", jylsh).setResultTransformer(DetachedCriteria.ALIAS_TO_ENTITY_MAP).list();
 
 				return list;
 			}

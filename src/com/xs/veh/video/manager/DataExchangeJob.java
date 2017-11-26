@@ -107,7 +107,7 @@ public class DataExchangeJob {
 		return flag;
 	}
 
-	@Scheduled(fixedDelay = 1000 * 60)
+	//@Scheduled(fixedDelay = 1000 * 60)
 	public void scanVideo() {
 		List data = this.hibernateTemplate.execute(new HibernateCallback<List>() {
 			@Override
