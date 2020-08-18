@@ -26,8 +26,8 @@ public class VideoManager {
 			public List<Map> doInHibernate(Session session) throws HibernateException {
 				List<Map> list = session
 						.createSQLQuery(
-								"SELECT * FROM VEH_IS_PROCSTATUS WHERE JYLSH=:jylsh AND JYXM!='DC' AND JYXM!='A1'  AND JYXM!='00' AND JYZT='2' AND JLZT='1' AND KSSJ IS NOT NULL  AND JSSJ IS NOT NULL ")
-						.setParameter("jylsh", jylsh).setResultTransformer(DetachedCriteria.ALIAS_TO_ENTITY_MAP).list();
+								"SELECT * FROM VEH_IS_PROCSTATUS WHERE JYLSH=:jylsh AND JYXM!='DC'  AND JYXM!='00' AND JYZT='2' AND JLZT='1' AND KSSJ IS NOT NULL  AND JSSJ IS NOT NULL ")
+						.setParameter("jylsh", jylsh).setResultTransformer(DetachedCriteria.ALIAS_TO_ENTITY_MAP).list();  
 
 				return list;
 			}
